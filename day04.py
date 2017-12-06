@@ -517,15 +517,51 @@ juo pmiyoh xxk myphio ogfyf dovlmwm moevao qqxidn
 '''
 # cSpell:enable
 
+# Part one
 VALID = 0
 for row in DATA.splitlines():
     words = sorted(row.split())
-    isValid = True
+    is_valid = True
     for i in range(1, len(words)):
         if words[i - 1] == words[i]:
-            isValid = False
+            is_valid = False
             break
-    if isValid:
+    if is_valid:
+        VALID += 1
+
+print VALID
+
+# Part two
+
+
+def is_anagram(word_a, word_b):
+    """Checks if two words are anagrams to each other"""
+    if len(word_a) != len(word_b):
+        return False
+    word_a = sorted(list(word_a))
+    word_b = sorted(list(word_b))
+    for k in range(0, len(word_a)):
+        if word_a[k] != word_b[k]:
+            return False
+    return True
+
+
+VALID = 0
+for row in DATA.splitlines():
+    words = sorted(row.split())
+    is_valid = True
+    for i in range(1, len(words)):
+        if words[i - 1] == words[i]:
+            is_valid = False
+            break
+    for i in range(0, len(words)):
+        for j in range(i + 1, len(words)):
+            if is_anagram(words[i], words[j]):
+                is_valid = False
+                break
+        if not is_valid:
+            break
+    if is_valid:
         VALID += 1
 
 print VALID

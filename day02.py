@@ -18,10 +18,22 @@ DATA = r'''4168	3925	858	2203	440	185	2886	160	1811	4272	4333	2180	174	157	361	1
 219	3933	6626	2137	3222	1637	5312	238	5895	222	154	6649	169	6438	3435	4183
 37	1069	166	1037	172	258	1071	90	497	1219	145	1206	143	153	1067	510'''
 
+# Part one
 CHECKSUM = 0
 for row in DATA.splitlines():
     numbers = map(int, row.split())
     largest = max(numbers)
     smallest = min(numbers)
     CHECKSUM += largest - smallest
+print CHECKSUM
+
+# Part two
+CHECKSUM = 0
+for row in DATA.splitlines():
+    numbers = map(int, row.split())
+    for i in range(0, len(numbers)):
+        for j in range(0, len(numbers)):
+            if i != j:
+                if numbers[i] % numbers[j] == 0:
+                    CHECKSUM += numbers[i] / numbers[j]
 print CHECKSUM
