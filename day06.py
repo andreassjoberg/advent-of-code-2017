@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 """Day 06 of advent of code"""
 
-DATA = r'14	0	15	12	11	11	3	5	1	6	8	4	9	1	8	4'
-
 
 def exists(array, previous_arrays):
     """Tests if the array has been seen before"""
@@ -12,49 +10,56 @@ def exists(array, previous_arrays):
     return False
 
 
-# Part one
-PREVIOUS = []
-CURRENT = map(int, DATA.split())
-CYCLES = 0
-while not exists(CURRENT, PREVIOUS):
-    CYCLES += 1
-    PREVIOUS.append(CURRENT[:])
-    MAX = max(CURRENT)
-    INDEX = CURRENT.index(MAX)
-    BLOCKS = CURRENT[INDEX]
-    CURRENT[INDEX] = 0
-    for j in range(0, BLOCKS):
-        SPREAD_INDEX = (INDEX + 1 + j) % len(CURRENT)
-        CURRENT[SPREAD_INDEX] = CURRENT[SPREAD_INDEX] + 1
+def part_one(data):
+    """Part one"""
+    previous = []
+    current = map(int, data.split())
+    cycles = 0
+    while not exists(current, previous):
+        cycles += 1
+        previous.append(current[:])
+        current_max = max(current)
+        index = current.index(current_max)
+        blocks = current[index]
+        current[index] = 0
+        for j in range(0, blocks):
+            spread_index = (index + 1 + j) % len(current)
+            current[spread_index] = current[spread_index] + 1
+    return cycles
 
-print CYCLES
 
-# Part two
-PREVIOUS = []
-CURRENT = map(int, DATA.split())
-CYCLES = 0
-while not exists(CURRENT, PREVIOUS):
-    CYCLES += 1
-    PREVIOUS.append(CURRENT[:])
-    MAX = max(CURRENT)
-    INDEX = CURRENT.index(MAX)
-    BLOCKS = CURRENT[INDEX]
-    CURRENT[INDEX] = 0
-    for j in range(0, BLOCKS):
-        SPREAD_INDEX = (INDEX + 1 + j) % len(CURRENT)
-        CURRENT[SPREAD_INDEX] = CURRENT[SPREAD_INDEX] + 1
+def part_two(data):
+    """Part two"""
+    previous = []
+    current = map(int, data.split())
+    cycles = 0
+    while not exists(current, previous):
+        cycles += 1
+        previous.append(current[:])
+        current_max = max(current)
+        index = current.index(current_max)
+        blocks = current[index]
+        current[index] = 0
+        for j in range(0, blocks):
+            spread_index = (index + 1 + j) % len(current)
+            current[spread_index] = current[spread_index] + 1
+    previous = []
+    cycles = 0
+    while not exists(current, previous):
+        cycles += 1
+        previous.append(current[:])
+        current_max = max(current)
+        index = current.index(current_max)
+        blocks = current[index]
+        current[index] = 0
+        for j in range(0, blocks):
+            spread_index = (index + 1 + j) % len(current)
+            current[spread_index] = current[spread_index] + 1
+    return cycles
 
-PREVIOUS = []
-CYCLES = 0
-while not exists(CURRENT, PREVIOUS):
-    CYCLES += 1
-    PREVIOUS.append(CURRENT[:])
-    MAX = max(CURRENT)
-    INDEX = CURRENT.index(MAX)
-    BLOCKS = CURRENT[INDEX]
-    CURRENT[INDEX] = 0
-    for j in range(0, BLOCKS):
-        SPREAD_INDEX = (INDEX + 1 + j) % len(CURRENT)
-        CURRENT[SPREAD_INDEX] = CURRENT[SPREAD_INDEX] + 1
 
-print CYCLES
+if __name__ == '__main__':
+    with open('day06.input', 'r') as f:
+        INPUT_DATA = f.read()
+    print part_one(INPUT_DATA)
+    print part_two(INPUT_DATA)
