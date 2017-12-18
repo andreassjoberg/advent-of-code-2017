@@ -11,13 +11,13 @@ def generate_next_number(previous, factor, multiple):
         previous = value
 
 
-def count_collitions(data, rounds, multiples):
-    """Count number of collitions"""
+def count_collisions(data, rounds, multiples):
+    """Count number of collisions"""
     factors = [16807, 48271]
     start = map(int, data.split(","))
     previous = start[:]
     matches = 0
-    for i in range(rounds):
+    for _ in range(rounds):
         gen_a = generate_next_number(previous[0], factors[0], multiples[0])
         gen_b = generate_next_number(previous[1], factors[1], multiples[1])
         previous = gen_a, gen_b
@@ -28,12 +28,12 @@ def count_collitions(data, rounds, multiples):
 
 def part_one(data):
     """Part one"""
-    return count_collitions(data, 40000000, [1, 1])
+    return count_collisions(data, 40000000, [1, 1])
 
 
 def part_two(data):
     """Part two"""
-    return count_collitions(data, 5000000, [4, 8])
+    return count_collisions(data, 5000000, [4, 8])
 
 
 if __name__ == '__main__':
